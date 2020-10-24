@@ -1,0 +1,49 @@
+Description: >
+    Sadrayan Bastion Host
+
+Parameters:
+    EnvironmentName:
+      Description: An environment name that will be prefixed to resource names
+      Type: String
+      Default: "HA-Web-Project"
+
+Resources:
+  BastionSG:
+    Type: AWS::EC2::SecurityGroup
+    Properties: 
+      GroupDescription: Security Group for Bastion Host to allow SSH
+      SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 22
+          ToPort: 22
+          CidrIp: 0.0.0.0/0
+      Tags:
+        - Key: Name 
+          Value: Bastion-SG
+      VpcId: 
+        Fn::ImportValue:
+          Fn::Sub: "${EnvironmentName}-VPCID"
+
+  BastionHost:
+    Type: AWS::EC2::Instance
+    Properties: 
+      BlockDeviceMappings: 
+        - DeviceName: "/dev/xvda"
+          Ebs: 
+            VolumeType: "gp2"
+            DeleteOnTermination: true
+            VolumeSize: 8
+      ImageId: ami-0841edc20334f9287
+      InstanceType: t2.micro
+      KeyName: EC2-KP
+      NetworkInterfaces: 
+        - AssociatePublicIpAddress: true
+          DeviceIndex: "0"
+          SubnetId:
+            Fn::ImportValue:
+              Fn::Sub: "${EnvironmentName}-PUB1-SN"
+          GroupSet: 
+            - !Ref BastionSG
+      Tags: 
+        - Key: Name 
+          Value: Bastion Host
