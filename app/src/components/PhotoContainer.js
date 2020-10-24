@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import Photo from './Photo';
 import NotFound from './NotFound';
-import { apiKey } from '../config';
 import axios from 'axios';
 
 /**
@@ -31,6 +30,9 @@ export default class PhotoContainer extends Component {
    * @param {string} get
    */
   fetchData = (query = "travel") => {
+    console.log("api key", process.env.REACT_APP_API_KEY)
+    const apiKey = process.env.REACT_APP_API_KEY
+    
     axios
       .get(`https://api.unsplash.com/search/collections?per_page=24&page=1&query=${query}&client_id=${apiKey}`)
       .then(response => {
