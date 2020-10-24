@@ -12,6 +12,7 @@ jobs:
     steps:
       - checkout
       - run: cd app && npm install
+      - run: cd app && npm run lint
       - run: cd app && npm test
 
       # TODO: add caching to speed things up.
