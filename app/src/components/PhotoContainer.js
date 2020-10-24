@@ -10,6 +10,11 @@ import axios from 'axios';
  */
 export default class PhotoContainer extends Component {
 
+  /**
+   * for test
+   */
+  _isMounted = false;
+
   /** 
    * Will create the main state of the App.
    * @constructor
@@ -30,9 +35,7 @@ export default class PhotoContainer extends Component {
    * @param {string} get
    */
   fetchData = (query = "travel") => {
-    console.log("api key", process.env.REACT_APP_API_KEY)
     const apiKey = process.env.REACT_APP_API_KEY
-    
     axios
       .get(`https://api.unsplash.com/search/collections?per_page=24&page=1&query=${query}&client_id=${apiKey}`)
       .then(response => {
@@ -67,7 +70,12 @@ export default class PhotoContainer extends Component {
     * @param {string} match.params
    */
   componentDidMount() {
+    this._isMounted = true;
     this.fetchData(this.props.match.params.query)
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
   }
 
   /**
@@ -105,7 +113,7 @@ export default class PhotoContainer extends Component {
       <div className="photo-container">
         <h2>{this.props.match.params.query ? 'Results of ' : ''}<span>{this.props.match.params.query}</span></h2>
         {this.state.isLoading ? <h1>Loading...</h1> : null}
-        <ul>
+        <ul className="photo-list">
           {images}
         </ul>
       </div>
