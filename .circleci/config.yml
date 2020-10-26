@@ -5,13 +5,34 @@
 version: 2
 jobs:
   build:
+    environment:
+      REACT_APP_API_KEY: sdasdadsada
+    
     docker:
       # specify the version you desire here
       - image: circleci/node:9
 
     steps:
       - checkout
-      - run: cd app && npm install && npm run lint
+
+      # Update npm
+      - run:
+          name: update-npm
+          command: 'sudo npm install -g npm@latest'
+
+      - run: cd app && npm install
+
+      # Run eslint
+      - run:
+          command: |
+            mkdir -p ~/reports
+            eslint ./app/src/ --format junit --output-file ~/reports/eslint.xml
+          when: always
+      - store_test_results:
+          path: ~/reports
+      - store_artifacts:
+          path: ~/reports      
+
       # - run: cd app && npm test
 
       # TODO: add caching to speed things up.

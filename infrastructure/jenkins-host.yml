@@ -1,30 +1,34 @@
 Description: >
-    Sadrayan Bastion Host
+    Sadrayan Jenkins Host
 
 Parameters:
     EnvironmentName:
       Description: An environment name that will be prefixed to resource names
       Type: String
-      Default: "HA-Web-Project"
+      Default: "Capston-Project"
 
 Resources:
-  BastionSG:
+  JenkinsSG:
     Type: AWS::EC2::SecurityGroup
-    Properties: 
-      GroupDescription: Security Group for Bastion Host to allow SSH
+    Properties:
+      GroupDescription: allow connections from specified CIDR ranges
       SecurityGroupIngress:
+        - IpProtocol: tcp
+          FromPort: 8080
+          ToPort: 8080
+          CidrIp: 0.0.0.0/0
         - IpProtocol: tcp
           FromPort: 22
           ToPort: 22
           CidrIp: 0.0.0.0/0
       Tags:
         - Key: Name 
-          Value: Bastion-SG
+          Value: Jenkins-SG
       VpcId: 
         Fn::ImportValue:
           Fn::Sub: "${EnvironmentName}-VPCID"
 
-  BastionHost:
+  JenkinsHost:
     Type: AWS::EC2::Instance
     Properties: 
       BlockDeviceMappings: 
@@ -33,7 +37,7 @@ Resources:
             VolumeType: "gp2"
             DeleteOnTermination: true
             VolumeSize: 8
-      ImageId: ami-0841edc20334f9287
+      ImageId: ami-01fee56b22f308154
       InstanceType: t2.micro
       KeyName: EC2-KP
       NetworkInterfaces: 
@@ -43,7 +47,20 @@ Resources:
             Fn::ImportValue:
               Fn::Sub: "${EnvironmentName}-PUB1-SN"
           GroupSet: 
-            - !Ref BastionSG
+            - !Ref JenkinsSG
       Tags: 
         - Key: Name 
-          Value: Bastion Host
+          Value: Jenkins Host
+      UserData:
+        Fn::Base64: !Sub |
+          #!/bin/bash -xe
+          sudo yum update -y
+          sudo yum install java-1.8.0 -y
+          sudo yum remove java-1.7.0-openjdk -y
+          sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
+          sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
+          sudo yum install jenkins -y
+          sudo service jenkins start 
+          sudo chkconfig --add jenkins
+          sudo chkconfig jenkins on
+          sudo service jenkins status 
