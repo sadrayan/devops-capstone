@@ -11,7 +11,7 @@
 * `./delete.sh captsone-infra-stack`
 
 ## Diagram
-![Diagram](AWS-HA-Instrastructure-CF.png)
+![Diagram](AWS-Jenkins-CF.png)
 
 ## SSH into EC2
 `ssh -i EC2-KP.pem ec2-user@YOUR_jenkins_IP`
