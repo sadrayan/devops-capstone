@@ -36,14 +36,14 @@ pipeline {
                   sh 'docker build -t gallery-capstone-app .'
               }
          }
-         stage('Push Docker Image') {
-              steps {
-                  withDockerRegistry([credentialsId: "DockerHubID", url: ""]) {
-                      sh "docker tag gallery-capstone-app:latest sadrayan/gallery-capstone-app:latest"
-                      sh 'docker push sadrayan/gallery-capstone-app:latest'
-                  }
-              }
-         }
+        //  stage('Push Docker Image') {
+        //       steps {
+        //           withDockerRegistry([credentialsId: "DockerHubID", url: ""]) {
+        //               sh "docker tag gallery-capstone-app:latest sadrayan/gallery-capstone-app:latest"
+        //               sh 'docker push sadrayan/gallery-capstone-app:latest'
+        //           }
+        //       }
+        //  }
         //  stage('Deploying') {
         //       steps{
         //           echo 'Deploying to AWS...'
