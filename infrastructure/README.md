@@ -26,7 +26,6 @@ Get the initial password to proceed with the installation:
 * Jenkins host in public subnets.
 * Security groups to restrict access to only necessary protocols and ports:
     * JenkinsSG (http - port:8080, ssh - port:22)
-* One EC2 instance of t2.micro in each availability zone, with 10Gb of EBS volume.
-* InstanceProfile to provide access to S3 from EC2 instances
-* UserData script to install and configure Apache server and serve index.html
+* One EC2 instance of t2.micro in availability zone
+* UserData script to install and configure Jenkins
 
