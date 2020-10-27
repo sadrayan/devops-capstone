@@ -20,10 +20,15 @@ pipeline {
     //     }
     //   }
     // }
+    stage('check user ') {
+      steps {
+        sh 'w'
+      }
+    }
 
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t gallery-capstone-app .'
+        sh 'sudo docker build -t gallery-capstone-app .'
       }
     }
 
