@@ -23,7 +23,7 @@ pipeline {
 
     stage('Build Docker Image') {
       steps {
-        sh 'docker build -t gallery-capstone-app .'
+        sh 'docker build -t gallery-capstone-app . --build-arg REACT_APP_API_KEY=${REACT_APP_API_KEY} '
       }
     }
 

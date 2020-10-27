@@ -1,6 +1,8 @@
 # Stage 0, "build-stage", based on Node.js, to build and compile the frontend
 FROM node:13.12.0-alpine as build-stage
 
+ARG REACT_APP_API_KEY="Default_Value"
+
 WORKDIR /app
 
 # COPY package*.json /app/
