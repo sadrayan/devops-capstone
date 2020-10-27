@@ -4,7 +4,7 @@ pipeline {
     stage('Lint Dockerfile') {
       steps {
           echo 'linting Dockerfile'
-          sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
+          sh 'sudo docker run --rm -i hadolint/hadolint < Dockerfile'
       }
     }
 
