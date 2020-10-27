@@ -4,10 +4,15 @@ pipeline {
     environment {
         APP_NAME = 'gallery-capstone-app'
         AWS_ACCOUNT = '915323986442'
-        REACT_APP_API_KEY = '$REACT_APP_API_KEY'
+        REACT_APP_API_KEY = "$REACT_APP_API_KEY"
     }
 
     stages {
+        stage('Test') {
+            steps {
+                sh "echo $REACT_APP_API_KEY"
+            }
+        }
         stage('Lint Dockerfile') {
             steps {
                 script {
@@ -30,7 +35,7 @@ pipeline {
 
         stage('Build Docker Image') {
             steps {
-                sh 'docker build -t $APP_NAME . --build-arg REACT_APP_API_KEY=$REACT_APP_API_KEY'
+                sh "docker build -t $APP_NAME . --build-arg REACT_APP_API_KEY=$REACT_APP_API_KEY"
             }
         }
 
@@ -38,7 +43,7 @@ pipeline {
             steps {
                 withDockerRegistry([url: '', credentialsId: 'DockerHubID']) {
                     sh "docker tag $APP_NAME:latest sadrayan/$APP_NAME:latest"
-                    sh 'docker push sadrayan/$APP_NAME:latest'
+                    sh "docker push sadrayan/$APP_NAME:latest"
                 }
             }
         }
