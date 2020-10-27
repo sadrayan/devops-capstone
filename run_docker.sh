@@ -13,4 +13,4 @@ docker images ls
 
 # Step 3: 
 # Run app
-docker run -it --rm -p 3000:3000 --name gallery-capstone-app gallery-capstone-app
+docker run -it --rm -p 80:80 --name gallery-capstone-app gallery-capstone-app
