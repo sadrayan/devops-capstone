@@ -8,7 +8,7 @@ COPY /app/ .
 
 RUN npm install
 
-RUN CI=true npm test --updateSnapshot
+RUN CI=true npm test --coverage --updateSnapshot
 
 RUN npm run build
 
