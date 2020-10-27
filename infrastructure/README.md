@@ -20,6 +20,9 @@ Get the initial password to proceed with the installation:
 
 `cat /var/lib/jenkins/secrets/initialAdminPassword`
 
+### Access Jenkins
+(no https) `<YOUR_PUBLIC_DNS>:8080`
+
 ## AWS components deployed and configured by CloudFormation templates
 * VPC configured with public and private subnets across two Availability Zones.
 * NAT gateways to allow outbound internet connectivity in the private subnets.
@@ -28,4 +31,6 @@ Get the initial password to proceed with the installation:
     * JenkinsSG (http - port:8080, ssh - port:22)
 * One EC2 instance of t2.micro in availability zone
 * UserData script to install and configure Jenkins
+
+
 
