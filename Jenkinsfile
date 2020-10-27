@@ -29,7 +29,7 @@ pipeline {
 
     stage('Push Docker Image') {
         steps {
-            withDockerRegistry([url: "", credentialsId: "dockerhub"]) {
+            withDockerRegistry([url: "", credentialsId: "DockerHubID"]) {
                 sh "docker tag gallery-capstone-app:latest sadrayan/gallery-capstone-app:latest"
                 sh 'docker push sadrayan/gallery-capstone-app:latest'
             }
