@@ -1,13 +1,6 @@
 pipeline {
   agent any
   stages {
-    stage('ES Linting') {
-      steps {
-        parallel(
-          eslint: {sh 'eslint *.js'}
-        )
-      }
-    }
     stage('Lint Dockerfile') {
       steps {
         script {
