@@ -21,12 +21,6 @@ pipeline {
     //   }
     // }
 
-    stage('Security Scan') {
-      steps {
-        aquaMicroscanner(imageName: 'node:13.12.0-alpine', notCompliesCmd: 'exit 1', onDisallowed: 'fail', outputFormat: 'html')
-      }
-    }
-
     stage('Build Docker Image') {
       steps {
         sh 'docker build -t gallery-capstone-app .'
