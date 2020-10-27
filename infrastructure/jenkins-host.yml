@@ -61,7 +61,6 @@ Resources:
           sudo yum install tidy -y
           sudo yum install docker -y
           sudo service docker start
-          sudo usermod -a -G docker jenkins
           sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
           sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
           sudo yum install jenkins -y
@@ -69,3 +68,4 @@ Resources:
           sudo chkconfig --add jenkins
           sudo chkconfig jenkins on
           sudo service jenkins status 
+          sudo usermod -a -G docker jenkins

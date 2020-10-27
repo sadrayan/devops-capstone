@@ -4,13 +4,13 @@ pipeline {
     stage('Lint Dockerfile') {
       steps {
           echo 'linting Dockerfile'
-          sh 'sudo docker run --rm -i hadolint/hadolint < Dockerfile'
+          sh 'docker run --rm -i hadolint/hadolint < Dockerfile'
       }
     }
 
     stage('Build Docker Image') {
       steps {
-        sh 'sudo docker build -t gallery-capstone-app .'
+        sh 'docker build -t gallery-capstone-app .'
       }
     }
 
