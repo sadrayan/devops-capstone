@@ -10,11 +10,8 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh "echo ${REACT_APP_API_KEY}"
-                withEnv(['REACT_APP_API_KEY=newbar']) {
-                    echo "REACT_APP_API_KEY = ${env.REACT_APP_API_KEY}" // prints: FOO = newbar
-                    echo "REACT_APP_API_KEY = ${REACT_APP_API_KEY}" // prints: FOO = newbar
-                }
+                echo "${REACT_APP_API_KEY}"
+                echo "REACT_APP_API_KEY = ${env.REACT_APP_API_KEY}" // prints: FOO = newbar
             }
         }
         stage('Lint Dockerfile') {
