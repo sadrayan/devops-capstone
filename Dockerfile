@@ -8,6 +8,8 @@ WORKDIR /app
 # COPY package*.json /app/
 COPY /app/ .
 
+RUN npm run clean
+
 RUN npm install
 
 RUN CI=true npm test --coverage --updateSnapshot

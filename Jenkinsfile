@@ -8,12 +8,6 @@ pipeline {
     }
 
     stages {
-        stage('Test') {
-            steps {
-                echo "${REACT_APP_API_KEY}"
-                echo "REACT_APP_API_KEY = ${env.REACT_APP_API_KEY}" // prints: FOO = newbar
-            }
-        }
         stage('Lint Dockerfile') {
             steps {
                 script {

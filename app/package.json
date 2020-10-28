@@ -14,6 +14,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test --coverage --updateSnapshot",
     "lint": "eslint src/**/*.js",
+    "clean": "rm -rf node_modules",
     "eject": "react-scripts eject"
   },
   "eslintConfig": {
