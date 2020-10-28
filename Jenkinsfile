@@ -4,7 +4,7 @@ pipeline {
     environment {
         APP_NAME = 'gallery-capstone-app'
         AWS_ACCOUNT = '915323986442'
-    // REACT_APP_API_KEY = "${REACT_APP_API_KEY}"
+    REACT_APP_API_KEY = "${REACT_APP_API_KEY}"
     }
 
     stages {
