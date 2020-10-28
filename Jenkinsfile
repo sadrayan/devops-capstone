@@ -5,6 +5,7 @@ pipeline {
         APP_NAME = 'gallery-capstone-app'
         AWS_ACCOUNT = '915323986442'
         REACT_APP_API_KEY = credentials('REACT_APP_API_KEY')
+        npm_config_cache = 'npm-cache'
     }
 
     stages {
