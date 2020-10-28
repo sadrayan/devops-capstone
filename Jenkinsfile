@@ -4,13 +4,17 @@ pipeline {
     environment {
         APP_NAME = 'gallery-capstone-app'
         AWS_ACCOUNT = '915323986442'
-        REACT_APP_API_KEY = "$REACT_APP_API_KEY"
+    // REACT_APP_API_KEY = "${REACT_APP_API_KEY}"
     }
 
     stages {
         stage('Test') {
             steps {
-                sh "echo ${env.REACT_APP_API_KEY}"
+                sh "echo ${REACT_APP_API_KEY}"
+                withEnv(['REACT_APP_API_KEY=newbar']) {
+                    echo "REACT_APP_API_KEY = ${env.REACT_APP_API_KEY}" // prints: FOO = newbar
+                    echo "REACT_APP_API_KEY = ${REACT_APP_API_KEY}" // prints: FOO = newbar
+                }
             }
         }
         stage('Lint Dockerfile') {
@@ -47,7 +51,6 @@ pipeline {
                 }
             }
         }
-
     }
     post {
         always {
