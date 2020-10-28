@@ -10,7 +10,7 @@ pipeline {
     stages {
         stage('Test') {
             steps {
-                sh "echo $REACT_APP_API_KEY"
+                sh "echo ${env.REACT_APP_API_KEY}"
             }
         }
         stage('Lint Dockerfile') {
