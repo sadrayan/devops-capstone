@@ -56,7 +56,9 @@ Set up following credentials (Go to Manage Jenkins > Manage Credentials):
  - Dockerhub credentials (for pulling the image from dockerhub) 
 
 ### Setup environment variables:
-Set up  
+Set up environment variables for the build (Unsplash API key)
+
+![jenkins-credentials](jenkins-credentials.png)
 
 
 
