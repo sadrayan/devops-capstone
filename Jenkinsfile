@@ -1,3 +1,4 @@
+/* groovylint-disable-next-line CompileStatic */
 pipeline {
     agent any
 
@@ -8,10 +9,28 @@ pipeline {
         npm_config_cache = 'npm-cache'
     }
 
+    stage('Deploying') {
+            steps {
+                echo 'Deploying to AWS...'
+                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                    sh 'aws s3 ls'
+                    // sh 'aws eks --region ap-south-1 update-kubeconfig --name capstoneclustersagarnil'
+                    /* groovylint-disable-next-line LineLength */
+                    // sh 'kubectl config use-context arn:aws:eks:ap-south-1:960920920983:cluster/capstoneclustersagarnil'
+                    // sh 'kubectl apply -f capstone-k8s.yaml'
+                    // sh 'kubectl get nodes'
+                    // sh 'kubectl get deployments'
+                    // sh 'kubectl get pod -o wide'
+                    // sh 'kubectl get service/capstone-app-sagarnil'
+                }
+            }
+        }
+
     stages {
         stage('Lint Dockerfile') {
             steps {
                 script {
+                    /* groovylint-disable-next-line NestedBlockDepth */
                     docker.image('hadolint/hadolint:latest-debian').inside {
                         sh 'hadolint ./Dockerfile | tee -a hadolint_lint.txt'
                         sh '''
@@ -40,6 +59,23 @@ pipeline {
                 withDockerRegistry([url: '', credentialsId: 'DockerHubID']) {
                     sh "docker tag $APP_NAME:latest sadrayan/$APP_NAME:latest"
                     sh "docker push sadrayan/$APP_NAME:latest"
+                }
+            }
+        }
+
+        stage('Deploying') {
+            steps {
+                echo 'Deploying to AWS...'
+                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+                    sh 'aws s3 ls'
+                    // sh 'aws eks --region ap-south-1 update-kubeconfig --name capstoneclustersagarnil'
+                    /* groovylint-disable-next-line LineLength */
+                    // sh 'kubectl config use-context arn:aws:eks:ap-south-1:960920920983:cluster/capstoneclustersagarnil'
+                    // sh 'kubectl apply -f capstone-k8s.yaml'
+                    // sh 'kubectl get nodes'
+                    // sh 'kubectl get deployments'
+                    // sh 'kubectl get pod -o wide'
+                    // sh 'kubectl get service/capstone-app-sagarnil'
                 }
             }
         }
