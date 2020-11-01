@@ -1,0 +1,39 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: gallery-capstone-app
+
+spec:
+  selector:
+    app: gallery-capstone-app
+  ports:
+    - port: 80
+      targetPort: 80
+  type: LoadBalancer
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: gallery-capstone-app
+
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: gallery-capstone-app
+  template:
+    metadata:
+      labels:
+        app: gallery-capstone-app
+    spec:
+      containers:
+        - name: gallery-capstone-app
+          image: sadrayan/gallery-capstone-app:latest
+          ports:
+            - containerPort: 80
+          resources:
+            limits:
+              memory: "128Mi"
+              cpu: "500m"

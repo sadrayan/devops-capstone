@@ -61,6 +61,12 @@ Resources:
           sudo yum install tidy -y
           sudo yum install docker -y
           sudo service docker start
+          echo "installing kubectl"
+          curl -LO "https://storage.googleapis.com/kubernetes-release/release/$(curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt)/bin/linux/amd64/kubectl"
+          curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.19.0/bin/linux/amd64/kubectl
+          chmod +x ./kubectl
+          sudo mv ./kubectl /usr/local/bin/kubectl
+          echo "install jenkins"
           sudo wget -O /etc/yum.repos.d/jenkins.repo https://pkg.jenkins.io/redhat/jenkins.repo
           sudo rpm --import https://pkg.jenkins.io/redhat/jenkins.io.key
           sudo yum install jenkins -y

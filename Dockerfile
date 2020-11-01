@@ -1,11 +1,10 @@
-# Stage 0, "build-stage", based on Node.js, to build and compile the frontend
+# Stage 1: Node.js build stage  
 FROM node:13.12.0-alpine as build-stage
 
 ARG REACT_APP_API_KEY="Default_Value"
 
 WORKDIR /app
 
-# COPY package*.json /app/
 COPY /app/ .
 
 RUN npm run clean
@@ -16,7 +15,7 @@ RUN CI=true npm test --coverage --updateSnapshot
 
 RUN npm run build
 
-# Stage 1, based on Nginx, to have only the compiled app, ready for production with Nginx
+# Stage 1, Nginx to serve the compiled app for production
 FROM nginx:1.15
 
 COPY --from=build-stage /app/build/ /usr/share/nginx/html
