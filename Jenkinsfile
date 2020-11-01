@@ -9,7 +9,9 @@ pipeline {
         npm_config_cache = 'npm-cache'
     }
 
-    stage('Deploying') {
+
+    stages {
+        stage('Deploying') {
             steps {
                 echo 'Deploying to AWS...'
                 withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
@@ -26,7 +28,6 @@ pipeline {
             }
         }
 
-    stages {
         stage('Lint Dockerfile') {
             steps {
                 script {
