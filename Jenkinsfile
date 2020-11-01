@@ -63,22 +63,22 @@ pipeline {
             }
         }
 
-        stage('Deploying') {
-            steps {
-                echo 'Deploying to AWS...'
-                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-                    sh 'aws s3 ls'
-                    // sh 'aws eks --region ap-south-1 update-kubeconfig --name capstoneclustersagarnil'
-                    /* groovylint-disable-next-line LineLength */
-                    // sh 'kubectl config use-context arn:aws:eks:ap-south-1:960920920983:cluster/capstoneclustersagarnil'
-                    // sh 'kubectl apply -f capstone-k8s.yaml'
-                    // sh 'kubectl get nodes'
-                    // sh 'kubectl get deployments'
-                    // sh 'kubectl get pod -o wide'
-                    // sh 'kubectl get service/capstone-app-sagarnil'
-                }
-            }
-        }
+        // stage('Deploying') {
+        //     steps {
+        //         echo 'Deploying to AWS...'
+        //         withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
+        //             sh 'aws s3 ls'
+        //             // sh 'aws eks --region ap-south-1 update-kubeconfig --name capstoneclustersagarnil'
+        //             /* groovylint-disable-next-line LineLength */
+        //             // sh 'kubectl config use-context arn:aws:eks:ap-south-1:960920920983:cluster/capstoneclustersagarnil'
+        //             // sh 'kubectl apply -f capstone-k8s.yaml'
+        //             // sh 'kubectl get nodes'
+        //             // sh 'kubectl get deployments'
+        //             // sh 'kubectl get pod -o wide'
+        //             // sh 'kubectl get service/capstone-app-sagarnil'
+        //         }
+        //     }
+        // }
     }
     post {
         always {
