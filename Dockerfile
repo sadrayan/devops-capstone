@@ -7,9 +7,9 @@ WORKDIR /app
 
 COPY /app/ .
 
-RUN npm run clean
-
 RUN npm install
+
+RUN npm run lint
 
 RUN CI=true npm test --coverage --updateSnapshot
 

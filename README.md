@@ -67,3 +67,12 @@ Set up environment variables for the build (Unsplash API key)
     - "ec2:*"
     - "s3:*"
     - "cloudformation:*"
+
+
+## Create an AWS Elastic Kubernetes Service Cluster
+eksctl tool will create an EKS cluster and will deploy:
+ - 3 nodegroup workers of type (t2.medium)
+ - autoscaling group with minimum 1 node and maximum of 4 nodes. 
+ - VPC, the public and the private subnets, the internet gateway and the route table
+
+`eksctl create cluster --name capstone-gallery-cluster --version 1.16 --nodegroup-name standard-workers --node-type t2.small --nodes 3 --nodes-min 1 --nodes-max 4 --node-ami auto --region us-west-2`
