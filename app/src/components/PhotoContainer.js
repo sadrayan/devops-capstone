@@ -50,7 +50,7 @@ export default class PhotoContainer extends Component {
     if (this.props.location.key !== prevProps.location.key) {
       this.resetState();
       this.fetchData(this.props.match.params.query);
-    }}
+    }
   } 
 
   render () {
