@@ -1,10 +1,5 @@
 import React from 'react';
 
-/**
- * PageNotFound component will mount when rendered to the DOM.
- * @namespace PageNotFound
- * @return {string} JSX element
- */
 const PageNotFound = () => {
   return(
     <div className="not-found">

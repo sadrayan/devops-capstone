@@ -1,18 +1,7 @@
-import React, { Component } from 'react';
+import React, { Component } from 'react'
 
-/**
- * Search component mount form to the DOM and handle searches.
- * @namespace Search
- * @extends React Component
- */
 export default class Search extends Component {
 
-  /**
-   * handleSubmit takes input from search bar and redirect page.
-   * @memberof Search
-   * @method handleSubmit
-   * @param {Object} event
-   */
   handleSubmit = (e) => {
     e.preventDefault();
     let query = this.name.value;
@@ -20,11 +9,6 @@ export default class Search extends Component {
     e.currentTarget.reset();
   }
 
-  /**
-   * Renders Form element
-   * @memberof Search component
-   * @return {string} - JSX element
-   */
   render() {
     return (
       <form className="search-form" onSubmit={this.handleSubmit}>

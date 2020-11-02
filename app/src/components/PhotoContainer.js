@@ -3,23 +3,10 @@ import Photo from './Photo';
 import NotFound from './NotFound';
 import axios from 'axios';
 
-/**
- * PhotoContainer component will mount search results to the DOM.
- * @namespace PhotoContainer
- * @extends React Component
- */
 export default class PhotoContainer extends Component {
 
-  /**
-   * for test
-   */
   _isMounted = false;
 
-  /** 
-   * Will create the main state of the App.
-   * @constructor
-   * @type {object}
-   */
   constructor() {
     super();
     this.state = {
@@ -28,13 +15,7 @@ export default class PhotoContainer extends Component {
     } 
   } 
 
-  /**
-   * fetchData uses Axios to fetch data from API and stores it into state's object.
-   * @memberof PhotoContainer
-   * @method fetchData
-   * @param {string} get
-   */
-  fetchData = (query = "travel") => {
+  fetchData = (query = 'travel') => {
     const apiKey = process.env.REACT_APP_API_KEY
     axios
       .get(`https://api.unsplash.com/search/collections?per_page=24&page=1&query=${query}&client_id=${apiKey}`)
@@ -49,11 +30,6 @@ export default class PhotoContainer extends Component {
       });
   }
 
-  /**
-   * resetState reset state to its initial values.
-   * @memberof PhotoContainer
-   * @method resetState
-   */
   resetState = () => {
     this.setState({
       images: [],
@@ -61,14 +37,6 @@ export default class PhotoContainer extends Component {
     })
   }
 
-  /**
-   * componentDidMount calls fetchData when element is first mount.
-   * @memberof PhotoContainer
-   * @method componentDidMount
-   * @inner
-    * @func fetchData
-    * @param {string} match.params
-   */
   componentDidMount() {
     this._isMounted = true;
     this.fetchData(this.props.match.params.query)
@@ -78,14 +46,6 @@ export default class PhotoContainer extends Component {
     this._isMounted = false;
   }
 
-  /**
-   * componentDidUpdate watches for path changed through history object.
-   * @memberof PhotoContainer
-   * @method componentDidUpdate
-   * @inner
-    *  @func resetState
-    *  @param {string} match.params
-   */
   componentDidUpdate(prevProps) {
     if (this.props.location.key !== prevProps.location.key) {
       this.resetState();
@@ -93,13 +53,6 @@ export default class PhotoContainer extends Component {
     }
   } 
 
-  /**
-   * Render images to the DOM, mapping each element from search results.
-   * If there is results from the search, it will render the image
-   * Else will render NotFound component. 
-   * @memberof App component
-   * @return {string} - JSX element
-   */
   render () {
     const data = this.state.images;
     let images;

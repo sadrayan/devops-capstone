@@ -4,29 +4,14 @@ pipeline {
 
     environment {
         APP_NAME = 'gallery-capstone-app'
-        AWS_ACCOUNT = '915323986442'
+        AWS_ACCOUNT = '575711874019'
+        REGION = 'us-west-2'
         REACT_APP_API_KEY = credentials('REACT_APP_API_KEY')
         npm_config_cache = 'npm-cache'
     }
 
 
     stages {
-        stage('Deploying') {
-            steps {
-                echo 'Deploying to AWS...'
-                withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-                    sh 'aws s3 ls'
-                    // sh 'aws eks --region ap-south-1 update-kubeconfig --name capstoneclustersagarnil'
-                    /* groovylint-disable-next-line LineLength */
-                    // sh 'kubectl config use-context arn:aws:eks:ap-south-1:960920920983:cluster/capstoneclustersagarnil'
-                    // sh 'kubectl apply -f capstone-k8s.yaml'
-                    // sh 'kubectl get nodes'
-                    // sh 'kubectl get deployments'
-                    // sh 'kubectl get pod -o wide'
-                    // sh 'kubectl get service/capstone-app-sagarnil'
-                }
-            }
-        }
 
         stage('Lint Dockerfile') {
             steps {
@@ -64,22 +49,21 @@ pipeline {
             }
         }
 
-        // stage('Deploying') {
-        //     steps {
-        //         echo 'Deploying to AWS...'
-        //         withAWS(credentials: 'aws-credentials', region: 'us-east-1') {
-        //             sh 'aws s3 ls'
-        //             // sh 'aws eks --region ap-south-1 update-kubeconfig --name capstoneclustersagarnil'
-        //             /* groovylint-disable-next-line LineLength */
-        //             // sh 'kubectl config use-context arn:aws:eks:ap-south-1:960920920983:cluster/capstoneclustersagarnil'
-        //             // sh 'kubectl apply -f capstone-k8s.yaml'
-        //             // sh 'kubectl get nodes'
-        //             // sh 'kubectl get deployments'
-        //             // sh 'kubectl get pod -o wide'
-        //             // sh 'kubectl get service/capstone-app-sagarnil'
-        //         }
-        //     }
-        // }
+        stage('Deploying') {
+            steps {
+                echo 'Deploying to AWS...'
+                withAWS(credentials: 'aws-credentials', region: $REGION) {
+                    sh "aws eks --region $REGION update-kubeconfig --name capstone-gallery-cluster"
+                    /* groovylint-disable-next-line LineLength */
+                    sh "kubectl config use-context arn:aws:eks:$REGION:$AWS_ACCOUNT:cluster/capstone-gallery-cluster"
+                    // sh 'kubectl apply -f capstone-k8s.yaml'
+                    // sh 'kubectl get nodes'
+                    // sh 'kubectl get deployments'
+                    // sh 'kubectl get pod -o wide'
+                    // sh 'kubectl get service/capstone-app-sagarnil'
+                }
+            }
+        }
     }
     post {
         always {
