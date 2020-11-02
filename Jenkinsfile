@@ -34,20 +34,20 @@ pipeline {
             }
         }
 
-        stage('Build Docker Image') {
-            steps {
-                sh "docker build -t $APP_NAME . --build-arg REACT_APP_API_KEY=$REACT_APP_API_KEY"
-            }
-        }
+        // stage('Build Docker Image') {
+        //     steps {
+        //         sh "docker build -t $APP_NAME . --build-arg REACT_APP_API_KEY=$REACT_APP_API_KEY"
+        //     }
+        // }
 
-        stage('Push Docker Image') {
-            steps {
-                withDockerRegistry([url: '', credentialsId: 'DockerHubID']) {
-                    sh "docker tag $APP_NAME:latest sadrayan/$APP_NAME:latest"
-                    sh "docker push sadrayan/$APP_NAME:latest"
-                }
-            }
-        }
+        // stage('Push Docker Image') {
+        //     steps {
+        //         withDockerRegistry([url: '', credentialsId: 'DockerHubID']) {
+        //             sh "docker tag $APP_NAME:latest sadrayan/$APP_NAME:latest"
+        //             sh "docker push sadrayan/$APP_NAME:latest"
+        //         }
+        //     }
+        // }
 
         stage('Deploying') {
             steps {
