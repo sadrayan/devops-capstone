@@ -52,9 +52,9 @@ pipeline {
         stage('Deploying') {
             steps {
                 echo 'Deploying to AWS...'
-                withAWS(credentials: 'aws-credentials') {  
+                withAWS(credentials: 'aws-credentials') {
                     sh 'cd kubernetes'
-                    sh "aws eks --region $REGION update-kubeconfig --name capstone-gallery-cluster"
+                    sh "aws eks update-kubeconfig --name capstone-gallery-cluster --region $REGION"
                     /* groovylint-disable-next-line LineLength */
                     sh "kubectl config use-context arn:aws:eks:$REGION:$AWS_ACCOUNT:cluster/capstone-gallery-cluster"
                     sh 'kubectl apply -f app-deployment.yml'

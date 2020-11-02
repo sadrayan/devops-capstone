@@ -24,7 +24,7 @@ then run:
 
     - http://localhost/
 
-    - `curl -s http://localhost` (curl option)
+    - curl -s http://localhost (curl option)
 
 3- Check the Docker logs for debug
 
