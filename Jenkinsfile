@@ -54,6 +54,7 @@ pipeline {
                 echo 'Deploying to AWS...'
                 withAWS(credentials: 'aws-credentials') {
                     sh 'cd kubernetes'
+                    sh 'pwd'
                     sh "aws eks update-kubeconfig --name capstone-gallery-app --region $REGION"
                     /* groovylint-disable-next-line LineLength */
                     sh "kubectl config use-context arn:aws:eks:$REGION:$AWS_ACCOUNT:cluster/capstone-gallery-app"
