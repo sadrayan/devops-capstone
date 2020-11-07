@@ -75,4 +75,30 @@ eksctl tool will create an EKS cluster and will deploy:
  - autoscaling group with minimum 1 node and maximum of 4 nodes. 
  - VPC, the public and the private subnets, the internet gateway and the route table
 
-`eksctl create cluster --name capstone-gallery-cluster --version 1.16 --nodegroup-name standard-workers --node-type t2.small --nodes 3 --nodes-min 1 --nodes-max 4 --node-ami auto --region us-west-2`
+Create cluster with eksctl:
+- `eksctl create cluster --name capstone-gallery-app --version 1.18 --nodegroup-name standard-workers --node-type t2.small --nodes 3 --nodes-min 1 --nodes-max 4 --node-ami auto --region us-west-2`
+OR
+- `eksctl create cluster -f cluster.yml`
+
+View all availeble clusters:
+- `aws eks list-clusters --region=us-west-2 --output=text`
+
+To delete the cluster (cleanup): 
+- `eksctl delete cluster --name capstone-gallery-app`
+
+List all services running in your cluster.
+- `kubectl get svc --all-namespaces`
+
+Delete services
+- `kubectl delete svc <service-name>`
+
+with cluster role arn
+`aws eks update-kubeconfig --name capstone-gallery-app --region us-west-2`
+
+`kubectl config use-context arn:aws:eks:us-west-2:575711874019:cluster/capstone-gallery-app`
+
+    - userarn: arn:aws:iam::575711874019:user/jenkins-capstone
+      username: jenkins-capstone
+      groups:
+        - system:masters
+

@@ -54,7 +54,7 @@ pipeline {
                 echo 'Deploying to AWS...'
                 withAWS(credentials: 'aws-credentials') {
                     sh 'cd kubernetes'
-                    sh "/usr/local/bin/aws eks update-kubeconfig --name capstone-gallery-cluster --region $REGION"
+                    sh "aws eks update-kubeconfig --name capstone-gallery-cluster --region $REGION"
                     /* groovylint-disable-next-line LineLength */
                     sh "kubectl config use-context arn:aws:eks:$REGION:$AWS_ACCOUNT:cluster/capstone-gallery-cluster"
                     sh 'kubectl apply -f app-deployment.yml'
@@ -64,6 +64,16 @@ pipeline {
                     sh "kubectl get service/$APP_NAME"
                 }
             }
+        }
+
+        stage('Checking rollout') {
+              steps{
+                  echo 'Checking rollout...'
+                  /* groovylint-disable-next-line DuplicateStringLiteral */
+                  withAWS(credentials: 'aws-credentials', region: 'us-west-2') {
+                     sh "kubectl rollout status deployments/$APP_NAME"
+                  }
+              }
         }
     }
     post {

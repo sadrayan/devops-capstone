@@ -1,0 +1,19 @@
+apiVersion: eksctl.io/v1alpha5
+kind: ClusterConfig
+
+metadata:
+  name: capstone-gallery-cluster
+  region: us-west-2
+
+managedNodeGroups:
+  - name: ng-workers-1
+    labels: {role: worker}
+    instanceType: t3.micro
+    desiredCapacity: 1
+    minSize: 1
+    maxSize: 3
+    iam:
+      withAddonPolicies:
+        albingress: true
+    tags:
+      nodegroup-role: worker
