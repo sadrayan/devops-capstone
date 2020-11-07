@@ -61,12 +61,19 @@ Set up environment variables for the build (Unsplash API key)
 ![jenkins-credentials](jenkins-credentials.png)
 
 
-
+### Follow this if you need to give access to your jenkins AWS account
+https://stackoverflow.com/questions/59987859/kubectl-error-you-must-be-logged-in-to-the-server-unauthorized
+https://docs.aws.amazon.com/eks/latest/userguide/add-user-role.html
+    
+`
+    - userarn: arn:aws:iam::575711874019:user/jenkins-capstone
+    username: jenkins-capstone
+    groups:
+    - system:masters
+`
 - AWS AIM user
     name jenkins-capstone
-    - "ec2:*"
-    - "s3:*"
-    - "cloudformation:*"
+
 
 
 ## Create an AWS Elastic Kubernetes Service Cluster
@@ -96,9 +103,4 @@ with cluster role arn
 `aws eks update-kubeconfig --name capstone-gallery-app --region us-west-2`
 
 `kubectl config use-context arn:aws:eks:us-west-2:575711874019:cluster/capstone-gallery-app`
-
-    - userarn: arn:aws:iam::575711874019:user/jenkins-capstone
-      username: jenkins-capstone
-      groups:
-        - system:masters
 
