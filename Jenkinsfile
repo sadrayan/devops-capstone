@@ -10,7 +10,6 @@ pipeline {
         npm_config_cache = 'npm-cache'
     }
 
-
     stages {
 
         stage('Lint Dockerfile') {
@@ -34,27 +33,25 @@ pipeline {
             }
         }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         sh "docker build -t $APP_NAME . --build-arg REACT_APP_API_KEY=$REACT_APP_API_KEY"
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                sh "docker build -t $APP_NAME . --build-arg REACT_APP_API_KEY=$REACT_APP_API_KEY"
+            }
+        }
 
-        // stage('Push Docker Image') {
-        //     steps {
-        //         withDockerRegistry([url: '', credentialsId: 'DockerHubID']) {
-        //             sh "docker tag $APP_NAME:latest sadrayan/$APP_NAME:latest"
-        //             sh "docker push sadrayan/$APP_NAME:latest"
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                withDockerRegistry([url: '', credentialsId: 'DockerHubID']) {
+                    sh "docker tag $APP_NAME:latest sadrayan/$APP_NAME:latest"
+                    sh "docker push sadrayan/$APP_NAME:latest"
+                }
+            }
+        }
 
         stage('Deploying') {
             steps {
                 echo 'Deploying to AWS...'
                 withAWS(credentials: 'aws-credentials') {
-                    sh 'cd kubernetes'
-                    sh 'pwd'
                     sh "aws eks update-kubeconfig --name capstone-gallery-app --region $REGION"
                     /* groovylint-disable-next-line LineLength */
                     sh "kubectl config use-context arn:aws:eks:$REGION:$AWS_ACCOUNT:cluster/capstone-gallery-app"
