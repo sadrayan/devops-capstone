@@ -67,7 +67,7 @@ pipeline {
         }
 
         stage('Checking rollout') {
-              steps{
+              steps {
                   echo 'Checking rollout...'
                   /* groovylint-disable-next-line DuplicateStringLiteral */
                   withAWS(credentials: 'aws-credentials', region: 'us-west-2') {
