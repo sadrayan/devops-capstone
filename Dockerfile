@@ -1,5 +1,5 @@
 # Stage 1: Node.js build stage  
-FROM node:13.12.0-alpine as build-stage
+FROM node:12.18.1 as build-stage
 
 ARG REACT_APP_API_KEY="Default_Value"
 
