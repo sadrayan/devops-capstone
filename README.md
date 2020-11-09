@@ -84,8 +84,6 @@ eksctl tool will create an EKS cluster and will deploy:
 
 Create cluster with eksctl:
 - `eksctl create cluster --name capstone-gallery-app --version 1.18 --nodegroup-name standard-workers --node-type t2.small --nodes 3 --nodes-min 1 --nodes-max 4 --node-ami auto --region us-west-2`
-OR
-- `eksctl create cluster -f cluster.yml`
 
 View all availeble clusters:
 - `aws eks list-clusters --region=us-west-2 --output=text`
@@ -99,8 +97,28 @@ List all services running in your cluster.
 Delete services
 - `kubectl delete svc <service-name>`
 
-with cluster role arn
+## Kubkuberneteser
+kubernetes deployment from the docker image:
+- Load balancer service (with an external IP) which operates on the three worker nodes
+- Deploy the app-deployment.yaml file
+
+Update eks with kubernetes cluster name
+
 `aws eks update-kubeconfig --name capstone-gallery-app --region us-west-2`
+
+Update kubectl with cluster ARN
 
 `kubectl config use-context arn:aws:eks:us-west-2:575711874019:cluster/capstone-gallery-app`
 
+Deploy app to kubenetes:
+
+`kubectl apply -f kubernetes/app-deployment.yml`
+
+- `kubectl get nodes`
+- `kubectl get deployments`
+- `kubectl get pod -o wide`
+- `kubectl get service/$APP_NAME`
+
+Fingers crossed, the application will be deployed to the kubernetes mananged cluster, with load balancer address to acces the application
+
+http://ab48dfe66e1614cff9a4d89c1fce379f-1105169351.us-west-2.elb.amazonaws.com/
