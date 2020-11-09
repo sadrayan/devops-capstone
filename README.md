@@ -34,7 +34,7 @@ then run:
 
 `docker stop gallery-capstone-app`
 
-## Tag and Upload Docker images to DockerHub
+### Tag and Upload Docker images to DockerHub
 1- update `upload_docker.sh` with your Dockerhub account information, and run:
 
 `./upload_docker.sh`
